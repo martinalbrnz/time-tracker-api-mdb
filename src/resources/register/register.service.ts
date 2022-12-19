@@ -1,26 +1,56 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreateRegisterDto } from './dto/create-register.dto';
 import { UpdateRegisterDto } from './dto/update-register.dto';
+import { Register, RegisterDocument } from './schemas/register.schema';
 
 @Injectable()
 export class RegisterService {
+  constructor(
+    @InjectModel(Register.name) private registerModel: Model<RegisterDocument>,
+  ) {}
+
   create(createRegisterDto: CreateRegisterDto) {
-    return 'This action adds a new register';
+    const register = new this.registerModel(createRegisterDto);
+    return register.save();
   }
 
-  findAll() {
-    return `This action returns all register`;
+  findAll(
+    query: { start_date: Date; end_date: Date },
+    index?: number,
+    size?: number,
+  ) {
+    return this.registerModel
+      .find(query)
+      .skip((Number(index) - 1) * Number(size))
+      .limit(size)
+      .exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} register`;
+  findUserAll(id?: string, index?: number, size?: number) {
+    return this.registerModel
+      .find({ user_id: id })
+      .skip((Number(index) - 1) * Number(size))
+      .limit(size)
+      .exec();
   }
 
-  update(id: number, updateRegisterDto: UpdateRegisterDto) {
-    return `This action updates a #${id} register`;
+  findOne(id: string) {
+    return this.registerModel.findById(id).exec();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} register`;
+  countDocuments(id?: string) {
+    return this.registerModel.countDocuments({ _id: id }).exec();
+  }
+
+  update(id: string, updateRegisterDto: UpdateRegisterDto) {
+    return this.registerModel.findByIdAndUpdate(id, updateRegisterDto, {
+      new: true,
+    });
+  }
+
+  remove(id: string) {
+    return this.registerModel.findByIdAndDelete(id);
   }
 }

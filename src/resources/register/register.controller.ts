@@ -1,7 +1,17 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { RegisterService } from './register.service';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  // eslint-disable-next-line prettier/prettier
+  Post
+} from '@nestjs/common';
 import { CreateRegisterDto } from './dto/create-register.dto';
+import { IndexRegisterDto } from './dto/index-register.dto';
 import { UpdateRegisterDto } from './dto/update-register.dto';
+import { RegisterService } from './register.service';
 
 @Controller('register')
 export class RegisterController {
@@ -13,22 +23,39 @@ export class RegisterController {
   }
 
   @Get()
-  findAll() {
-    return this.registerService.findAll();
+  findUserAll(@Param() query: IndexRegisterDto) {
+    return this.registerService.findUserAll(
+      query.user,
+      query.index,
+      query.size,
+    );
+  }
+
+  @Get('all')
+  findAll(@Param() query: IndexRegisterDto) {
+    const { start_date, end_date } = query;
+    return this.registerService.findAll(
+      { start_date, end_date },
+      query.index,
+      query.size,
+    );
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.registerService.findOne(+id);
+    return this.registerService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateRegisterDto: UpdateRegisterDto) {
-    return this.registerService.update(+id, updateRegisterDto);
+  update(
+    @Param('id') id: string,
+    @Body() updateRegisterDto: UpdateRegisterDto,
+  ) {
+    return this.registerService.update(id, updateRegisterDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.registerService.remove(+id);
+    return this.registerService.remove(id);
   }
 }

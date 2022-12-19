@@ -1,1 +1,5 @@
-export class CreateProjectDto {}
+export class CreateProjectDto {
+  title: string;
+  description?: string;
+  registers?: string[];
+}

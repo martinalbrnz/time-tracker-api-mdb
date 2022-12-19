@@ -7,12 +7,15 @@ export type ProjectDocument = mongoose.HydratedDocument<Project>;
 @Schema()
 export class Project {
   @Prop({ required: true, unique: true })
-  email: string;
+  title: string;
+
+  @Prop({ required: false })
+  description: string;
 
   @Prop({
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Register' }],
   })
-  register: Register[];
+  registers: Register[];
 }
 
 export const ProjectSchema = SchemaFactory.createForClass(Project);

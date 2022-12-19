@@ -10,7 +10,7 @@ export class Register {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   user_id: User;
 
-  @Prop({ required: true })
+  @Prop({ required: true, index: true })
   init_date: Date;
 
   @Prop({ required: true })

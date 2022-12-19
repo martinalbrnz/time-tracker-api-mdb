@@ -26,11 +26,11 @@ export class UserService {
     return this.userModel.findOne({ email: email }).exec();
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
+  update(id: string, updateUserDto: UpdateUserDto) {
     return this.userModel.findByIdAndUpdate(id, updateUserDto, { new: true });
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return this.userModel.findByIdAndDelete(id);
   }
 }
