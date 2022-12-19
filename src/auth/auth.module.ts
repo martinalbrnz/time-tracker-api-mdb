@@ -12,7 +12,7 @@ import { LocalStrategy } from './local.strategy';
   imports: [
     ConfigModule,
     UserModule,
-    PassportModule,
+    PassportModule.register({ session: true }),
     JwtModule.register({
       secret: jwtConstants.secret,
       signOptions: { expiresIn: '12h' },
