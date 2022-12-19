@@ -1,12 +1,12 @@
+import { AuthModule } from '@auth/auth.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ProjectModule } from '@resources/project/project.module';
+import { RegisterModule } from '@resources/register/register.module';
+import { UserModule } from '@resources/user/user.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthModule } from './auth/auth.module';
-import { ProjectModule } from './project/project.module';
-import { RegisterModule } from './register/register.module';
-import { UserModule } from './user/user.module';
 
 @Module({
   imports: [

@@ -16,6 +16,12 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@auth/*": ["./src/auth/*"],
+      "@constants/*": ["./src/constants/*"],
+      "@guards/*": ["./src/guards/*"],
+      "@resources/*": ["./src/resources/*"],
+    }
   }
 }
