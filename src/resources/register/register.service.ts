@@ -30,9 +30,11 @@ export class RegisterService {
 
   findUserAll(id?: string, index?: number, size?: number) {
     return this.registerModel
-      .find({ user_id: id })
+      .find({ user_id: { $eq: id } })
       .skip((Number(index) - 1) * Number(size))
       .limit(size)
+      .populate('user_id', { name: 1, email: 1 })
+      .populate('project')
       .exec();
   }
 

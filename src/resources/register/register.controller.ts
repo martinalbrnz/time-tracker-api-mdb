@@ -5,8 +5,9 @@ import {
   Get,
   Param,
   Patch,
+  Post,
   // eslint-disable-next-line prettier/prettier
-  Post
+  Query
 } from '@nestjs/common';
 import { CreateRegisterDto } from './dto/create-register.dto';
 import { IndexRegisterDto } from './dto/index-register.dto';
@@ -23,7 +24,7 @@ export class RegisterController {
   }
 
   @Get()
-  findUserAll(@Param() query: IndexRegisterDto) {
+  findUserAll(@Query() query: IndexRegisterDto) {
     return this.registerService.findUserAll(
       query.user,
       query.index,
