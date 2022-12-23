@@ -19,11 +19,28 @@ export class UserService {
   }
 
   findAll() {
-    return this.userModel.find().exec();
+    return this.userModel
+      .find({}, { role: 1, email: 1, registers: 1, active: 1 })
+      .populate('registers', { user_id: 0 })
+      .exec();
   }
 
   findOne(email: string) {
     return this.userModel.findOne({ email: email }).exec();
+  }
+
+  findOneUser(email: string) {
+    return this.userModel
+      .findOne({ email: email }, { role: 1, email: 1, registers: 1, active: 1 })
+      .exec();
+  }
+
+  appendRegister(id: string, register: string) {
+    return this.userModel.findByIdAndUpdate(
+      id,
+      { $push: { registers: register } },
+      { new: true },
+    );
   }
 
   update(id: string, updateUserDto: UpdateUserDto) {

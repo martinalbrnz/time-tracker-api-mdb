@@ -33,7 +33,7 @@ export class RegisterController {
   }
 
   @Get('all')
-  findAll(@Param() query: IndexRegisterDto) {
+  findAll(@Query() query: IndexRegisterDto) {
     const { start_date, end_date } = query;
     return this.registerService.findAll(
       { start_date, end_date },
