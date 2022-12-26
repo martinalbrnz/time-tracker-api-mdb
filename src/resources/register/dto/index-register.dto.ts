@@ -1,7 +1,8 @@
 export class IndexRegisterDto {
+  id?: string;
   user?: string;
   index: number;
   size: number;
-  start_date: Date;
+  init_date: Date;
   end_date: Date;
 }

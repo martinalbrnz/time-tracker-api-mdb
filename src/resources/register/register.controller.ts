@@ -25,21 +25,19 @@ export class RegisterController {
 
   @Get()
   findUserAll(@Query() query: IndexRegisterDto) {
-    return this.registerService.findUserAll(
-      query.user,
-      query.index,
-      query.size,
-    );
+    return this.registerService.findUserAll(query);
   }
 
   @Get('all')
   findAll(@Query() query: IndexRegisterDto) {
-    const { start_date, end_date } = query;
-    return this.registerService.findAll(
-      { start_date, end_date },
+    const { init_date, end_date } = query;
+    const data = this.registerService.findAll(
+      { init_date, end_date },
       query.index,
       query.size,
     );
+    const docsCount = this.registerService.countDocuments();
+    return { data, docsCount };
   }
 
   @Get(':id')
