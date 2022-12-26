@@ -31,7 +31,7 @@ export class UserService {
 
   findOneUser(id: string) {
     return this.userModel
-      .findById(id, { role: 1, email: 1, registers: 1, active: 1 })
+      .findById(id, { role: 1, email: 1, registers: 1, active: 1, name: 1 })
       .populate('registers')
       .exec();
   }
